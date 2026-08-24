@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "coverage-intelligence": {
+      "type": "http",
+      "url": "https://worlds.hammer.ai/mcp"
+    }
+  }
+}

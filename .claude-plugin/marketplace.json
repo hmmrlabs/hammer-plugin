@@ -1,0 +1,35 @@
+{
+  "name": "hammer",
+  "owner": {
+    "name": "hmmr labs",
+    "url": "https://github.com/hmmrlabs"
+  },
+  "description": "Hammer worlds: corpora that publish what they cannot answer, reached over MCP, with the discipline for reading one without overstating it.",
+  "plugins": [
+    {
+      "name": "hammer-worlds",
+      "displayName": "Hammer Worlds",
+      "source": "./hammer-worlds",
+      "description": "Mounts the hosted coverage-intelligence world over HTTP and carries the one skill that is about the discipline rather than any corpus: how to route a question through the worlds a client has mounted, why two worlds' answers never compose into a third claim, how to read a refusal, and the claim report every answer built on a world has to close with. Each world ships its own routing instructions from its own deployed build, so nothing here can describe a version that no longer exists.",
+      "version": "0.1.0",
+      "author": {
+        "name": "hmmr labs",
+        "url": "https://github.com/hmmrlabs"
+      },
+      "homepage": "https://github.com/hmmrlabs/hammer-plugin",
+      "repository": "https://github.com/hmmrlabs/hammer-plugin",
+      "license": "Apache-2.0",
+      "category": "knowledge",
+      "keywords": [
+        "mcp",
+        "healthcare",
+        "coverage",
+        "reimbursement",
+        "cpt",
+        "refusal",
+        "measurement",
+        "evidence"
+      ]
+    }
+  ]
+}
