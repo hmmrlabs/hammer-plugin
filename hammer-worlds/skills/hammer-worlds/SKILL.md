@@ -30,10 +30,24 @@ not mounted.
 machine and per install, and a world you remember having and do not have is
 exactly the case that ends in hand arithmetic presented as a finding.
 
-**2. Read what each mounted world publishes, before spending a call.** Every
-world's `cannot_answer` list arrives in the MCP `initialize` response as the
-server's instructions, and every tool carries its own `refusals` array. So the
-question can be matched against the worlds before any tool runs.
+**2. Call `hello_world` on each world you are about to use, before spending a
+call on anything else.** Every world serves it, no world declares it, and it
+takes no argument. One call hands back that world's identity and what a receipt
+is redeemed against, which question goes to which of its tools with each tool's
+closed vocabularies, what it refuses and why, which `knowledge_navigate` anchors
+actually resolve in that build, and the claim discipline. All of it is read from
+that world's own declarations at the moment you call, so it cannot disagree with
+the tools listed beside it.
+
+That last property is why this step is here rather than "read the world's skill".
+A skill is written once and goes stale: one shipped here named fewer than half
+its world's tools for a month and told callers a question was unserved while the
+tool answering it was already listed. `hello_world` cannot do that, because there
+is nothing in it to forget to update.
+
+Every world's `cannot_answer` list also arrives in the MCP `initialize` response
+as the server's instructions, and every tool carries its own `refusals` array. So
+the question can be matched against the worlds before any tool runs.
 
 **3. Split the question, and say which parts have no world.** A world that
 refuses the question is information, not a dead end: it names what it cannot
@@ -402,6 +416,16 @@ grammar rather than in English. Then check them. Then write only what came back
 `entailed`. The report at the bottom is that same list with the verdicts filled
 in, which is why it costs almost nothing to produce. Assembling it afterwards
 from finished prose is how a claim goes missing.
+
+**When you know who is going to read it, call `say_world` with that reader.**
+Every world serves it beside `hello_world`, and the audience is a closed set:
+`executive`, `statistician`, `clinical`. It names the misreading that reader is
+most likely to make and points at the refusal of that world's own that forbids
+it, which is the part you cannot get from the payload. It changes vocabulary,
+emphasis and ordering only: every audience carries every one of that world's
+refusals in the world's own words, reports the same basis, and closes with the
+same claim report. If a rendering has lost a qualifier, it is not shorter, it is
+false, and `say_world` is built so it cannot hand you one.
 
 The shape, and it is fixed:
 
