@@ -1,0 +1,42 @@
+{
+  "name": "hammer-worlds",
+  "version": "0.2.0",
+  "description": "One remote Hammer world and one skill for using its evidence without overstating it.",
+  "author": {
+    "name": "hmmr labs",
+    "url": "https://github.com/hmmrlabs"
+  },
+  "homepage": "https://github.com/hmmrlabs/hammer-plugin",
+  "repository": "https://github.com/hmmrlabs/hammer-plugin",
+  "license": "Apache-2.0",
+  "keywords": [
+    "mcp",
+    "healthcare",
+    "coverage",
+    "reimbursement",
+    "refusal",
+    "measurement",
+    "evidence"
+  ],
+  "skills": "./skills/",
+  "mcpServers": "./.mcp.json",
+  "interface": {
+    "displayName": "Hammer Worlds",
+    "shortDescription": "Worlds that publish what they cannot answer",
+    "longDescription": "Use a hosted Hammer world through MCP, inspect its declared limits before analysis, and close every answer with checked and unchecked claims.",
+    "developerName": "hmmr labs",
+    "category": "Knowledge",
+    "capabilities": [
+      "Interactive",
+      "Read"
+    ],
+    "websiteURL": "https://github.com/hmmrlabs/hammer-plugin",
+    "privacyPolicyURL": "https://github.com/hmmrlabs/hammer-plugin/blob/main/README.md",
+    "termsOfServiceURL": "https://github.com/hmmrlabs/hammer-plugin/blob/main/LICENSE",
+    "defaultPrompt": [
+      "Using Hammer Worlds, investigate this reimbursement question.",
+      "Use Hammer Worlds to check this claim and report anything left unchecked.",
+      "Ask Hammer Worlds what this evidence can and cannot answer."
+    ]
+  }
+}

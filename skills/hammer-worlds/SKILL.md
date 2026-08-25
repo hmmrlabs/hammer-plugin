@@ -13,8 +13,10 @@ Three steps, in order, and the third is the one that gets skipped.
 
 **1. Find out what is mounted. There is no list in a file to read.** A world is
 mounted when the client has an MCP server for it, so the mounted set is whatever
-servers are connected right now. Run `/mcp`, or read the tool names you were
-given. One server per world and the server's name is the world's name, so a tool
+servers are connected right now. Inspect the client's MCP connections or read
+the tool names you were given. In Claude Code, `/mcp` opens that view. In
+Cowork, open the installed plugin's Connectors page. One server per world and
+the server's name is the world's name, so a tool
 arriving as `mcp__noise__noise_audit` is the noise world and one arriving as
 `mcp__fda__claim_check` is the fda world. A server declared by a plugin is
 namespaced by the plugin too, so the same tools arrive as
@@ -179,11 +181,11 @@ form is not a convenience, it is the workaround for the defect below.
 The store is `$HAMMER_HOME`, default `~/.hammer`, laid out as
 `worlds/<name>/<vintage>/`.
 
-## The MCP server, and why it must be user scope
+## Install the plugin and mount the MCP server
 
 This plugin declares its servers in its own `.mcp.json`, so installing the
-plugin wires them up. There is no `claude mcp add` step, and there must not be
-one.
+plugin through Cowork, Claude Code, or Codex wires them up. Do not add a second
+copy of the same server by hand.
 
 **One server per world, and the server's name is the world's name.** A world is
 mounted by adding an entry, keyed by the world's name: a URL for a hosted world,
@@ -195,11 +197,8 @@ world-scoped tool naming scheme exists anywhere.** It also keeps each world's
 audit log its own file, and stops one process from being the single point of
 failure for every world mounted.
 
-**The scope is the whole point.** Install this plugin at **user** scope. A
-plugin installed at user scope lives in `~/.claude/plugins` and its MCP server
-is available in every directory you run Claude Code from. A plugin installed at
-project scope is written into that repo's `.claude/settings.json` and its server
-exists only there.
+**The scope is the whole point.** Use a user-wide install when the client offers
+one. A project-scoped install makes the server available only in that project.
 
 This is not a preference and not tidiness. **The first live test failed exactly
 this way.** A noise world added while inside the hammer repo was invisible from
@@ -210,16 +209,44 @@ no refusal when the design is not fully crossed, no `not_measured` field, no
 `cannot_answer` in the handshake. A silently absent tool is worse than a broken
 one, because the answer still arrives and still looks like an answer.
 
+**Cowork:** Open **Cowork > Customize > Plugins**. In **Personal plugins**,
+choose **+**, then **Add marketplace**. Add `hmmrlabs/hammer-plugin`, install
+**Hammer Worlds**, and complete connector sign-in when prompted.
+
+**Claude Code:**
+
 ```
 /plugin marketplace add hmmrlabs/hammer-plugin
 /plugin install hammer-worlds@hammer   choose user scope when prompted
 ```
 
-Check it landed where you think: `claude plugin details hammer-worlds`, or look
-for `hammer-worlds` under `enabledPlugins` in `~/.claude/settings.json` (user)
-rather than `./.claude/settings.json` (project). Then run `/mcp` and confirm the
-world is connected. The proof that it worked is that `/mcp` shows it from a
-directory that is **not** any hammer checkout. Test it from `/tmp`.
+Check it with `claude plugin details hammer-worlds`. Then run `/mcp`, complete
+browser OAuth, and confirm the world is connected.
+
+**Codex:**
+
+```
+codex plugin marketplace add hmmrlabs/hammer-plugin
+codex plugin add hammer-worlds@hammer
+```
+
+Approve browser OAuth during installation. If it was deferred, open the plugin
+or MCP connection in Codex and authenticate there.
+
+**Other Agent Skills clients:**
+
+```
+npx skills add hmmrlabs/hammer-plugin --skill hammer-worlds -a <profile> --yes
+```
+
+This route installs the skill. If the client does not consume the MCP dependency
+in `agents/openai.yaml`, add `https://worlds.hammer.ai/mcp` as a remote HTTP MCP
+server through that client's settings and complete browser OAuth.
+
+In Claude Code and Codex, verify the server appears from a directory that is not
+a Hammer checkout. In Cowork, verify it on the installed plugin's Connectors
+page. Then call its no-argument `hello_world` tool. A connected tool and a
+successful `hello_world` response prove more than a manifest on disk.
 
 ## Known limitation: a build bump cannot be installed over its own vintage
 
@@ -497,16 +524,18 @@ is a correct caveat sitting in the same paragraph as the claim it forbids.
 
 ## When the server will not connect: the hosted transport
 
-Run `/mcp` and read the state before changing anything, because three different
-situations all look like the tools are missing.
+Open the client's MCP connection view and read the state before changing
+anything, because three different situations all look like the tools are
+missing. In Claude Code, that view is `/mcp`. In Cowork, open the installed
+plugin's Connectors page.
 
 **Not connected at all.** The plugin is not enabled, or it is enabled at project
 scope and you are somewhere else. Check the scope first; see above for why that
 is the failure worth ruling out before any other.
 
-**Connected but not authenticated.** Choose the server in `/mcp` and
-authenticate. Until that is done the service answers `401`, which is the correct
-answer to an anonymous caller and not a fault.
+**Connected but not authenticated.** Choose the server in the client's MCP view
+and authenticate. Until that is done the service answers `401`, which is the
+correct answer to an anonymous caller and not a fault.
 
 **Connected, authenticated, and the world still declines.** Then it is a refusal
 and the refusal is the product. Read it, report it, and do not compute around it.

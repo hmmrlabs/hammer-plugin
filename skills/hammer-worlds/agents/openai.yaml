@@ -1,0 +1,11 @@
+interface:
+  display_name: "Hammer Worlds"
+  short_description: "Worlds that publish what they cannot answer"
+  default_prompt: "Use $hammer-worlds to investigate this question through mounted worlds and report every unsupported claim."
+dependencies:
+  tools:
+    - type: "mcp"
+      value: "coverage-intelligence"
+      description: "Hosted Hammer coverage-intelligence world"
+      transport: "streamable_http"
+      url: "https://worlds.hammer.ai/mcp"

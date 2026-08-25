@@ -1,0 +1,20 @@
+{
+  "name": "hammer",
+  "interface": {
+    "displayName": "Hammer"
+  },
+  "plugins": [
+    {
+      "name": "hammer-worlds",
+      "source": {
+        "source": "url",
+        "url": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Knowledge"
+    }
+  ]
+}

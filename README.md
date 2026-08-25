@@ -1,4 +1,4 @@
-# hammer worlds, as a Claude Code plugin marketplace
+# Hammer Worlds for Claude, Codex, and Agent Skills
 
 A **hammer world** is a corpus that publishes what it cannot answer. It arrives
 as an MCP server, it hands out figures with receipts attached, it checks the
@@ -6,11 +6,20 @@ claims you write against those receipts, and where a question is outside what it
 sources can settle it refuses and says why. The refusals are not a limitation
 that came with it. They are the product.
 
-This repository is the marketplace. Adding it gives you one plugin, which mounts
-the hosted **coverage-intelligence** world and carries the one skill that is
-about the discipline rather than about any particular corpus.
+This repository distributes one plugin across Claude Code, Claude Cowork, Codex,
+and clients that implement the Agent Skills format. Every native plugin install
+mounts the hosted **coverage-intelligence** world and carries one skill about the
+discipline rather than any particular corpus.
 
-## Add it
+## Install it
+
+### Claude Cowork
+
+Open **Cowork > Customize > Plugins**. In **Personal plugins**, choose **+**,
+then **Add marketplace**. Add `hmmrlabs/hammer-plugin`, install **Hammer
+Worlds**, and complete the connector sign-in when prompted.
+
+### Claude Code
 
 ```
 /plugin marketplace add hmmrlabs/hammer-plugin
@@ -25,6 +34,33 @@ answer.
 
 Then run `/mcp` and authenticate. A browser opens. There is no key to paste, no
 token in this repository and nothing to put in your settings.
+
+### Codex
+
+```
+codex plugin marketplace add hmmrlabs/hammer-plugin
+codex plugin add hammer-worlds@hammer
+```
+
+Approve the OAuth prompt during installation. If authentication was deferred,
+open the plugin or MCP connection in Codex and authenticate there. Codex reads
+the same root skill and the same `.mcp.json` as Claude.
+
+### Other Agent Skills clients
+
+```
+npx skills add hmmrlabs/hammer-plugin --skill hammer-worlds -a <profile> --yes
+```
+
+Replace `<profile>` with the client profile supported by the Skills CLI. This
+installs the skill. A skill-only client may not install MCP dependencies from
+`agents/openai.yaml`; when it does not, add the remote HTTP endpoint
+`https://worlds.hammer.ai/mcp` through that client's MCP settings and complete
+OAuth there.
+
+Three layers remain separate. MCP provides the world and its tools. The skill
+provides the procedure for using those tools without overstating them. Plugin
+manifests distribute both together where a client supports plugins.
 
 ## What it costs
 
@@ -102,13 +138,13 @@ plugins. That warning is correct and this section is what it is owed. Everything
 in it can be checked against the files in this repository before you install
 anything, which is the only kind of assurance worth offering.
 
-- **Read it first; it is small enough to read.** One skill, which is prose, and
-  three JSON files. Nothing here executes.
+- **Read it first; it is small enough to read.** One skill, one YAML interface
+  declaration and five JSON manifests. Nothing here executes.
 - **No hooks, no commands, no agents, no binaries, no corpus.** Nothing in this
   plugin runs on your machine on a trigger you did not press, and nothing in it
   can read a file, because there is no code in it that could.
 - **One network destination, declared in one file.**
-  `hammer-worlds/.mcp.json` names `https://worlds.hammer.ai/mcp` and nothing
+  `.mcp.json` names `https://worlds.hammer.ai/mcp` and nothing
   else. What crosses the wire is the tool call your client made and the arguments
   you put in it.
 - **The service is the operator's own**, running on Google Cloud. Its replies
