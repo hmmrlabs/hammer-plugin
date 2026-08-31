@@ -2,7 +2,7 @@
   "name": "hammer-worlds",
   "displayName": "Hammer Worlds",
   "description": "One MCP declaration pointing at the hosted coverage-intelligence world, and one skill about the discipline of reading a world without overstating it. Ships no corpus, no binary and no per-world documentation: every world serves its own routing skill from the build that answers your tool calls.",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": {
     "name": "hmmr labs",
     "url": "https://github.com/hmmrlabs"

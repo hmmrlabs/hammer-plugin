@@ -1,9 +1,26 @@
 ---
 name: hammer-worlds
-description: Use when somebody says "using Hammer Worlds" or asks what hammer worlds are mounted, when routing a question through the mounted worlds and deciding which parts no world can answer, when writing up any answer built on a hammer world, choosing between claim_check and judgement_check, or installing, verifying, listing or serving a world, wiring one into an MCP client, debugging a hammer MCP server that will not start, or reading a refusal. Carries how to find out which worlds are mounted and how to choose among them, that two worlds' answers never compose into a third claim, the required claim report every such answer must close with, why claim_check is preferred and why neither check falls back to the other, plus where a world runs and what crosses the wire, that a hosted world serves its own routing skill from the build that answers you, user scope versus project scope, what hammer verify did not check, and the build bump that cannot be installed over its own vintage.
+description: Use when somebody says "using Hammer Worlds" or asks what hammer worlds are mounted, when routing a question through the mounted worlds and deciding which parts no world can answer, when writing up any answer built on a hammer world, choosing between claim_check and judgement_check, or installing, verifying, listing or serving a world, wiring one into an MCP client, debugging a hammer MCP server that will not start, or reading a refusal. Carries how to find out which worlds are mounted and how to choose among them, that two worlds' answers never compose into a third claim, the required claim report every such answer must close with, why claim_check is preferred and why neither check falls back to the other, plus where a world runs and what crosses the wire, that a hosted world serves its own routing skills from the build that answers you and that hello_world is how you list and fetch them, user scope versus project scope, what hammer verify did not check, and the build bump that cannot be installed over its own vintage.
 ---
 
 # hammer-worlds
+
+## What this skill is called, and it is not what installs it
+
+The plugin is `hammer-worlds` and the skill inside it is `hammer-worlds` too, so
+the two names are not interchangeable even though they are spelled the same.
+
+**A client that namespaces a plugin's skills by the plugin resolves this one as
+`hammer-worlds:hammer-worlds`.** Claude Code does, and that pair is what its
+skill listing shows and what its Skill tool accepts. Asking such a client for
+`hammer-worlds` on its own asks for the plugin, and the skill is not found.
+A client that installs the skill directly, as
+`npx skills add hmmrlabs/hammer-plugin --skill hammer-worlds` does, has no plugin
+to namespace it by, and there it is `hammer-worlds`.
+
+So: install and enable by the plugin name, invoke by whichever form your client's
+own listing shows. Where this file names itself in prose it means the skill, and
+where a command line names `hammer-worlds@hammer` it means the plugin.
 
 ## Using Hammer Worlds
 
@@ -33,13 +50,22 @@ machine and per install, and a world you remember having and do not have is
 exactly the case that ends in hand arithmetic presented as a finding.
 
 **2. Call `hello_world` on each world you are about to use, before spending a
-call on anything else.** Every world serves it, no world declares it, and it
-takes no argument. One call hands back that world's identity and what a receipt
-is redeemed against, which question goes to which of its tools with each tool's
+call on anything else.** Every world serves it and no world declares it. Called
+with no arguments it hands back that world's identity and what a receipt is
+redeemed against, which question goes to which of its tools with each tool's
 closed vocabularies, what it refuses and why, which `knowledge_navigate` anchors
-actually resolve in that build, and the claim discipline. All of it is read from
+actually resolve in that build, the claim discipline, and **a listing of the
+skills that world ships, each with its own description**. All of it is read from
 that world's own declarations at the moment you call, so it cannot disagree with
 the tools listed beside it.
+
+The listing is a listing and not the bodies. Call `hello_world` again with
+`skill` set to one of the names it printed to get that skill in full, from the
+same build that will answer your tool calls. A name the world does not ship is
+refused by naming the ones it does. Take the description as written to be read on
+its own: it is what says whether the body is worth fetching. Fetching every skill
+a world ships before you know which question you have is how this call stopped
+fitting in a tool result in the first place.
 
 That last property is why this step is here rather than "read the world's skill".
 A skill is written once and goes stale: one shipped here named fewer than half
@@ -62,6 +88,48 @@ comes from the worlds. A reader cannot tell the two halves apart and will read t
 whole thing as world backed. If nothing mounted bears on the question at all, say
 so and say what is mounted. "No world here answers this" is shorter than the
 answer built by guessing, and it is the true one.
+
+## A goal is not a question, and the checkers will not tell you so
+
+**Everything above assumes you already know what to ask.** Where you do not, the three steps
+produce a set of correct answers that add up to nothing, and the failure looks exactly like the
+world working properly.
+
+Measured on 2026-08-30, on a real one. Somebody said a clinical guideline would let hospitals
+make more money. `claim_check` returned `undefined`, because the sentence names no declared
+figure. No estimator saw it, because it was not a call. `judgement_check` returned `forbidden`,
+correctly, because that corpus holds no evidence a guideline changes revenue. **Every answer was
+right and their sum was a dead end**: the person learned they may not write the sentence, and
+nothing about what they could write instead.
+
+The tell is easy to miss, so learn it: **a question names a figure and gets a verdict; a goal is a
+thing somebody wants to be true and gets three refusals that each look like the world doing its
+job.** If you are refused from more than one direction on one topic and none of the refusals moves
+you, you were holding a goal.
+
+**What to do instead.** Look for a tool on the mounted world that takes a goal rather than a claim.
+It will say so in its own description, and it will ask you to declare the goal in your own words
+plus the claims it rests on. Coverage-intelligence calls its one `frontier`; a world that has no
+such tool will not have one under a different name, and its `cannot_answer` list is where you find
+that out before spending a call.
+
+A tool like this routes and settles nothing. What it returns is where each part of your question
+would be answered: which parts a tool here serves, which parts sit in a corpus nobody has read
+yet, which parts are facts about your own book that no corpus will ever hold, and which parts are
+permanently refused **together with the nearest question the world does answer**.
+
+**Two things about the order, and they are why the routing is worth a call.**
+
+The part of a goal that kills it is often not the part you would have checked first. On the case
+above the fatal fact was that under every contract the hospital had published, following the
+guideline cost it money. That sat behind three other checks, so a caller who worked in the obvious
+order fixed a measurement problem first and learned the direction of the money was wrong on their
+second pass.
+
+And **a figure being yours to declare is good news, not a refusal.** A world that says it cannot
+know your contract terms, your costs or your payer mix is telling you which inputs unblock the
+estimators the moment you supply them. Read that as a shopping list. A caller who hears "cannot
+answer" and stops has misread the most actionable line in the reply.
 
 ## Two worlds' answers are two answers
 
@@ -146,14 +214,18 @@ entitlement flow it declares tools for it, `request_access` and `redeem_code` on
 the coverage world, and a refusal for want of entitlement is a refusal with a
 remedy rather than an outage.
 
-**A hosted world serves its own skills, and that is the point.** `resources/list`
-on the server returns one resource per skill in the world's `skills/`
-compartment, at `hammer://<package>/skills/<skill>`, and `resources/read` returns
-that `SKILL.md` out of the deployed image. So the routing instructions for a
-world come from the same build that answers its tools. **Read them from the
-server rather than from anywhere else.** A copy of a world's skill kept beside
-the world is a second thing to keep in step, and the copy a reader meets first is
-the one that went stale.
+**A hosted world serves its own skills, and that is the point.** The routing
+instructions for a world come from the same build that answers its tools, so
+**read them from the server rather than from anywhere else**. A copy of a world's
+skill kept beside the world is a second thing to keep in step, and the copy a
+reader meets first is the one that went stale.
+
+`hello_world` is the way in: it lists them, and `hello_world` with `skill` set to
+one of those names returns that `SKILL.md` out of the deployed image. The same
+files are also resources, one per skill at `hammer://<package>/skills/<skill>`,
+which `resources/list` enumerates and `resources/read` returns. Prefer the tool.
+Those two are the client's resource tools rather than the world's, and across 60
+transcripts here they drew 666 offers and no invocations at all.
 
 **What the client sends is the tool call and nothing else.** The arguments are
 what you put in them. No file is read off your disk and uploaded, because a
@@ -336,9 +408,17 @@ instructions, and each tool carries its own `refusals` array, so an agent can
 see what a world declines before spending a call.
 
 Undeclared MCP capabilities answer with **empty lists, not `-32601`**. Verified
-on 2026-08-15: `resources/list` returns `{"resources": []}`. Clients probe
-methods a server never advertised and, on an error, conclude the whole server
-is unavailable while its tools were reachable the entire time.
+on 2026-08-15 against a world that declared none: `resources/list` returned
+`{"resources": []}`. Clients probe methods a server never advertised and, on an
+error, conclude the whole server is unavailable while its tools were reachable
+the entire time.
+
+**Read that as being about the error shape, not about resources being empty.**
+Corrected 2026-08-30, because the sentence above had started to say something
+false: measured on the hosted coverage world, `resources/list` returns **seven**,
+one per skill the world ships. An empty list means that world declares no
+resources, and never that this method is not worth calling. `hello_world` is
+still the way in for skills, for the reason given above.
 
 ## Which check to call, and there is no fallback
 
@@ -544,9 +624,21 @@ Two things this transport does not have. There is no per-world path to guess at:
 measured 2026-08-24, `https://worlds.hammer.ai/mcp` answers and paths under it
 named for other worlds answer `404`, so a world that is not on the surface is not
 reachable by inventing a URL. And there is no local audit file, so take the
-session id and the receipt ids out of the tool results you were handed. If a
-result carried neither, write `session not recorded` in the claim report and say
-so. Do not drop the line and do not invent one.
+session id and the receipt ids out of the tool results you were handed.
+
+**The session id is served at both ends of a session**: `hello_world`, which is the
+call the routing step tells you to make first, and `deliver`, which is the last
+call before the report is written. Both carry it in `structuredContent.session`.
+Read it from either and name it. Only if you called neither, write `session not
+recorded` and say so. Do not drop the line and do not invent one.
+
+**A receipt id is per session, and the ids restart.** Measured 2026-08-29 on one
+hosted process: two sessions ran side by side and BOTH minted `r1`, resolving to
+different receipts. So `r1` alone identifies nothing across two runs, and a claim
+report that cites receipts without its session cannot be traced by whoever holds
+the log. **Name the session once at the top and the receipts under it**, which is
+what the report's shape already asks for, and never quote a receipt id from one
+session into a claim made in another.
 
 ## When the server will not start: a world you run yourself
 
@@ -614,8 +706,10 @@ drift, and `/hammer:noise-setup` diffs the two and says so.
 
 ## Related
 
-- A world's own routing skill, served by the world itself at
-  `hammer://<package>/skills/<skill>`. Fetch it from the server rather than
-  looking for a copy: it comes from the build that is answering you.
+- A world's own routing skills, served by the world itself. `hello_world` lists
+  them and `hello_world` with `skill` set to one of those names returns one in
+  full; they are also resources at `hammer://<package>/skills/<skill>`. Fetch
+  from the server rather than looking for a copy: it comes from the build that is
+  answering you.
 - The tool descriptions in the MCP surface, which are the authority on what
   exists, what each call takes and what each one refuses.
