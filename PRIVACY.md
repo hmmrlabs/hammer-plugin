@@ -93,9 +93,10 @@ API that answers tool calls.
 
 ## Your requests
 
-Write to **privacy@hammer.ai** to ask what is held for you, to have a session's
-ledger object deleted, or to raise a concern. Say which sessions if you know
-them; the session id appears in every answer the world returns and in `deliver`.
+Write to **kartik+hammerlabs@multiversal.ventures** to ask what is held for
+you, to have a session's ledger object deleted, or to raise a concern. Say which
+sessions if you know them; the session id appears in every answer the world
+returns and in `deliver`.
 
 ## Changes
 

@@ -89,5 +89,9 @@ after a change accepts it. Material changes will be noted in the release notes.
 
 ## Contact
 
-**support@hammer.ai** for the service, **privacy@hammer.ai** for data questions,
-and **security@hammer.ai** to report a vulnerability.
+**kartik+hammerlabs@multiversal.ventures** reaches us: for the service, for
+data questions, and to report a vulnerability.
+
+One address rather than three. Three addresses forwarding to one person is a
+directory of aliases rather than a support channel, and an address that bounces
+is worse than one that is plain about who is behind it.
