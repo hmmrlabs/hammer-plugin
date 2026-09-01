@@ -32,7 +32,8 @@
       ],
       "privacyPolicyURL": "https://github.com/hmmrlabs/hammer-plugin/blob/main/PRIVACY.md",
       "termsOfServiceURL": "https://github.com/hmmrlabs/hammer-plugin/blob/main/TERMS.md",
-      "supportEmail": "kartik+hammerlabs@multiversal.ventures"
+      "supportEmail": "hammer@multiversal.ventures",
+      "icon": "https://hammer.ai/hammer-mark.svg"
     }
   ]
 }

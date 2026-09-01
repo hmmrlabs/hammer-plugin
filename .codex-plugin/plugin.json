@@ -37,6 +37,7 @@
       "Using Hammer Worlds, investigate this reimbursement question.",
       "Use Hammer Worlds to check this claim and report anything left unchecked.",
       "Ask Hammer Worlds what this evidence can and cannot answer."
-    ]
+    ],
+    "iconURL": "https://hammer.ai/hammer-mark.svg"
   }
 }
