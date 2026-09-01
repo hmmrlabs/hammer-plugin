@@ -11,6 +11,33 @@ and clients that implement the Agent Skills format. Every native plugin install
 mounts the hosted **coverage-intelligence** world and carries one skill about the
 discipline rather than any particular corpus.
 
+**New here?** The release note is the place to start, and it is written for
+people who read the literature closely and then have to defend what they write:
+[Hello, Hammer Worlds](https://hammer.ai/blog/hello-hammer-worlds/). It covers
+what the corpus holds, why a refusal is an answer, and what this will not do.
+
+## What is in this release
+
+The coverage-intelligence world serves what commercial payers published they pay,
+code by code, alongside the Medicare fee schedules, the NCCI billing-pair edits
+and the Medicare Coverage Database articles that qualify a rate. Every figure
+arrives with the number of observations behind it and two figures saying how thin
+that evidence is, and a cell below the reporting floor is refused rather than
+averaged into something that looks stable.
+
+Five tools handle the case where your input is a range rather than a number: run
+a world's own estimator over distributions you declare, rank which of your
+assumptions actually moves the answer, check a number you already believe against
+what the model produced, ask what would have to change, and build a prior from a
+small declared network. Everything they serve is marked as resting on
+assumptions, even where the underlying figure was measured, because arithmetic
+over your own declarations does not become an observation.
+
+The skill in this repository is about the discipline rather than the corpus: how
+to route a question through whatever worlds a client has mounted, why two worlds'
+answers never compose into a third claim, how to read a refusal, and the claim
+report every answer built on a world has to close with.
+
 ## Install it
 
 ### Claude Cowork

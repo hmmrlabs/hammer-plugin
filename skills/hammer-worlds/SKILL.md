@@ -504,6 +504,60 @@ used to say the reply named *"every non-numeric field under
 who believed it would leave the most important qualifier on an answer unchecked
 because they had been told it was undeclarable.)
 
+## When your input is a range rather than a number
+
+Every estimator takes point values. A caller who does not have one has been
+retyping their uncertainty away: picking the middle of a range, running the call,
+and quoting the answer as though the middle were the fact.
+
+Five tools the runtime mounts into **every** world take the declaration instead.
+They are not a world's tools, so they are there whatever corpus you are on, and
+they refuse in the same `simulation/` vocabulary everywhere.
+
+- **`simulate`** runs one of that world's tools many seeded times over
+  distributions you declare, and returns the share of draws that answered, the
+  share refused **broken down by which wall each hit**, and a distribution for
+  every figure.
+- **`sensitivity`** ranks which of your declared inputs actually moves the
+  answer. Run it twice, once with `response` set to `"answered"` and once to a
+  figure path: an input that decides *whether* you get an answer can look inert in
+  a figure's decomposition, and the two rankings disagreeing is the finding.
+- **`interval_check`** decides whether a number you already believe sits inside
+  what the simulation produced. Six verdicts and no tolerance parameter.
+- **`decision_navigate`** answers "what would have to change", over moves you
+  declare with costs in your own units.
+- **`network_infer`** builds a distribution from a small Bayesian network you
+  declare, by exact enumeration. It needs no corpus, so it answers even on a world
+  that ships none.
+
+**Four rules that are not obvious and will cost you a call each.**
+
+**Everything they serve is `assumption`,** even when the underlying estimator
+answers `measured` on every single draw. Arithmetic over your own declarations
+does not become an observation, and the weakest-input rule carries that basis
+through to every figure. This is the point of the family rather than a caveat on
+it.
+
+**A cohort is its recipe, not a saved object.** Nothing is stored. These tools
+take the same arguments `simulate` took, and you may pass `cohort` as well, in
+which case the id is recomputed and a mismatch refuses. That is what makes "these
+two figures are about the same trials" a fact you can establish rather than a
+label you have to trust.
+
+**A pinned input carries no index at all.** `sensitivity` gives an input declared
+as a `point` a `pinned_reason` and no `first_order_index`, because held-fixed and
+varied-but-inert are different findings that would both print as zero.
+
+**An edge in a network is a factorisation and not a cause.** `causal`,
+`intervention`, `do`, `effect_of`, `counterfactual` and `treatment_effect_of` are
+refused by name rather than answered with a caveat, because the arithmetic for
+conditioning and for an intervention is the same and only the name differs.
+
+**Where the tools are not mounted, they say so.** On a world that declares no
+estimators, four of the five refuse with
+`simulation/world-declares-no-estimators` and `network_infer` answers. That is
+the shape of the tools rather than a gap in that world.
+
 ## The claim report, which is part of the answer
 
 **Any answer built on a hammer world ends with a claim report.** It is not a
