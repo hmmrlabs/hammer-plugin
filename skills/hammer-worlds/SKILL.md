@@ -558,6 +558,29 @@ estimators, four of the five refuse with
 `simulation/world-declares-no-estimators` and `network_infer` answers. That is
 the shape of the tools rather than a gap in that world.
 
+## Reading a tool's full description
+
+`tools/list` carries a runtime tool's **opening two sentences, what it refuses,
+and a pointer**. It does not carry the rest, and no tool's listing entry carries
+what its arguments mean.
+
+That is deferral rather than omission. A caller pays for every tool on connect,
+before asking anything, and measured on a 37-tool world the listing was 103,506
+bytes with 70 percent of it prose. It is 66,469 now.
+
+**`hello_world` with `tool` set to a name returns the full text and the full
+argument schema**, out of the same build that will answer your call.
+
+What stays in the listing is what a client validates a call against: every type,
+every enum, every required flag. So a call you can make from the listing alone
+will be accepted; a call you want to make *well* is worth one `hello_world`
+first.
+
+**Two tools are exempt and keep their whole entry: `claim_check` and
+`judgement_check`.** Every other description tells you what a tool does. Those
+two tell you whether a sentence may be written at all, and an agent that misreads
+them does not fail loudly, it writes the sentence.
+
 ## The claim report, which is part of the answer
 
 **Any answer built on a hammer world ends with a claim report.** It is not a
