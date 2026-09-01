@@ -89,9 +89,10 @@ after a change accepts it. Material changes will be noted in the release notes.
 
 ## Contact
 
-**kartik+hammerlabs@multiversal.ventures** reaches us: for the service, for
-data questions, and to report a vulnerability.
+**hammer@multiversal.ventures** reaches us: for the service, for data
+questions, and to report a vulnerability.
 
-One address rather than three. Three addresses forwarding to one person is a
-directory of aliases rather than a support channel, and an address that bounces
-is worse than one that is plain about who is behind it.
+One address rather than three. It is a group rather than a person, so it
+survives any one of us being away, and it accepts mail from anyone rather than
+only from people we already know. Three aliases forwarding to one inbox is a
+directory of aliases rather than a support channel.
