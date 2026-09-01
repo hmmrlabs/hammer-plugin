@@ -38,6 +38,66 @@ to route a question through whatever worlds a client has mounted, why two worlds
 answers never compose into a third claim, how to read a refusal, and the claim
 report every answer built on a world has to close with.
 
+## If you installed before 25 August 2026, reinstall
+
+**Your client is pinned to a version it can no longer update past, and it will
+not tell you.** It will keep showing whatever it installed, with no error.
+
+On 25 August the plugin moved from a `hammer-worlds/` subdirectory to the root of
+this repository, so the marketplace entry's `source` changed from
+`./hammer-worlds` to `./`. An install made before that points at a path that no
+longer exists. Every release since, 0.2.0 through 0.4.0, has been published
+somewhere those installs do not look.
+
+**How to tell.** Open the plugin's details. If the version reads **0.1.0**, or
+**Last updated** says 24 August or earlier, you are on the orphaned install. The
+current version is **0.4.0**.
+
+Nothing is wrong with what you have; it simply stopped receiving updates, which
+in this case means it is missing the five tools that take a range instead of a
+point.
+
+**The fix is to remove and re-add.** An update will not do it, because the update
+follows the same dead path.
+
+### Claude Cowork
+
+**Customize > Plugins**, open **Hammer Worlds**, use the **⋮** menu to
+**Uninstall**. Then remove the `hammer-plugin` marketplace if it is listed
+separately, add `hmmrlabs/hammer-plugin` again, and install **Hammer Worlds**.
+Confirm the version now reads 0.4.0.
+
+### Claude Code
+
+```
+/plugin uninstall hammer-worlds@hammer
+/plugin marketplace remove hammer
+/plugin marketplace add hmmrlabs/hammer-plugin
+/plugin install hammer-worlds@hammer
+```
+
+The marketplace removal is the step that matters. Re-adding without it can reuse
+the cached entry that carries the old path.
+
+### Codex
+
+```
+codex plugin remove hammer-worlds@hammer
+codex plugin marketplace remove hammer
+codex plugin marketplace add hmmrlabs/hammer-plugin
+codex plugin add hammer-worlds@hammer
+```
+
+### Agent Skills clients
+
+Re-run the install command below; it fetches the skill by path from the current
+default branch rather than from a cached marketplace entry, so it was not
+affected.
+
+**After reinstalling, reconnect the MCP connection.** A client that connected
+before a world deploy holds the old tool list, which is a separate cache from the
+plugin one.
+
 ## Install it
 
 ### Claude Cowork
