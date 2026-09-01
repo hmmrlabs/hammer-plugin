@@ -21,5 +21,8 @@
     "evidence"
   ],
   "skills": "./skills/",
-  "mcpServers": "./.mcp.json"
+  "mcpServers": "./.mcp.json",
+  "privacyPolicyURL": "https://github.com/hmmrlabs/hammer-plugin/blob/main/PRIVACY.md",
+  "termsOfServiceURL": "https://github.com/hmmrlabs/hammer-plugin/blob/main/TERMS.md",
+  "supportEmail": "support@hammer.ai"
 }

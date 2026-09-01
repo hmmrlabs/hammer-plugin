@@ -31,8 +31,8 @@
       "Read"
     ],
     "websiteURL": "https://github.com/hmmrlabs/hammer-plugin",
-    "privacyPolicyURL": "https://github.com/hmmrlabs/hammer-plugin/blob/main/README.md",
-    "termsOfServiceURL": "https://github.com/hmmrlabs/hammer-plugin/blob/main/LICENSE",
+    "privacyPolicyURL": "https://github.com/hmmrlabs/hammer-plugin/blob/main/PRIVACY.md",
+    "termsOfServiceURL": "https://github.com/hmmrlabs/hammer-plugin/blob/main/TERMS.md",
     "defaultPrompt": [
       "Using Hammer Worlds, investigate this reimbursement question.",
       "Use Hammer Worlds to check this claim and report anything left unchecked.",
