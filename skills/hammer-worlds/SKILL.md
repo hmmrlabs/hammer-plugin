@@ -447,6 +447,50 @@ expression over the payload's numeric figures: a claim about a text field, about
 a named party, about something existing, or about a shape the grammar has no
 operator for.
 
+**The one case that looks numeric and is not: QUOTING a served figure.** "Aetna's
+median published rate for 91200 is $20.77" is a sentence about what the answer
+says, not an assertion about arithmetic, and `claim_check` cannot pass it: a
+decimal is read as rounded, so `== 20.77` against a payload carrying 20.77 comes
+back `not_entailed` however exactly the digits match. That is this checker
+telling you the claim was the WRONG SHAPE. It is not a finding about the figure,
+the figure is not in doubt, and it is **never a reason to withdraw the sentence
+or to refuse the question**. Either claim the interval you are writing, or — if
+what you want is the published number in front of a reader — send the sentence
+to `judgement_check`, where a figure this receipt already served is supported by
+that receipt whether or not you restate it.
+
+This is choosing correctly the first time and not falling back: decide which
+checker the claim belongs to *before* the call, by whether you are asserting
+arithmetic or quoting the record.
+
+**A verdict about how you BUILT the claim is not a verdict about the record.**
+This is the general rule and the decimal case above is only one instance of it.
+`not_entailed` on an equality, `unverifiable`, `undefined` on a misspelled path,
+and any refusal naming `restates_your_input` all say the same thing: the claim
+was malformed. None of them is evidence against your answer, and none is a
+reason to withdraw a sentence or refuse a question. Repair the claim and check
+again.
+
+The commonest way to earn one is to list an identifier among `quantities`. The
+procedure code, the payer, the vintage — anything your own arguments carried in —
+are identifiers, not measurements. They are already declared by the receipt, so
+listing one makes your sentence restate your own input. Put only measured numbers
+in `quantities`; name codes and parties in `entities`.
+
+MEASURED 2026-09-10, the second time this exact misread cost an answer: asked
+what a payer published for a code, an agent passed the code as a quantity, was
+told the sentence restated its input, and replied "I cannot answer that. The
+figure is available, but this world's `judgement_check` tool refused to endorse
+a sentence stating the rate" — with $33.15, the figure the world had just served
+it, sitting in its own claim report.
+
+MEASURED 2026-09-10, and this is what it cost. An agent told to check before
+writing read "prefer `claim_check`" together with "do not fall back", claimed
+`== 20.77` against a payload carrying 20.77, read the `not_entailed` as the
+record failing its answer, and declined a question it had already answered
+correctly. A refusal the evidence does not call for is as wrong as a claim the
+evidence does not carry.
+
 **Choose once, before the call, and do not fall back.** A claim `claim_check`
 will not read comes back `undefined`, `out_of_scope`, `vacuous`,
 `indeterminate` or `unreadable`, and each of those is a refusal carrying a
@@ -593,6 +637,52 @@ model read it, relayed it accurately, then computed the refused quantity by hand
 and delivered it anyway. Nothing in the protocol can stop that. What the report
 changes is that skipping the submission now shows up in the deliverable rather
 than nowhere.
+
+### `session_trace` is how you find out before you write
+
+**Do not assemble the report from memory.** You remember what you meant to do;
+the ledger holds what you did, and the gap between them is exactly where an
+unchecked figure hides. A report written from recollection cannot name the
+receipt you forgot, because forgetting it is why it is missing.
+
+`session_trace` reads the ledger back: every receipt this session issued, in
+issue order, whether the world answered or refused, and whether you ever
+submitted a claim against it. It writes nothing and records nothing, so it costs
+you no row and can be called at any point.
+
+**Measured 2026-09-07**, in a live session working a cost-of-care case: eleven
+receipts issued, zero claims submitted, `deliver` never called. Every figure went
+into prose with nothing behind it. Nothing was broken and nobody ignored a
+warning: the only surface that computed that figure was the one called last.
+
+The order, and it only works this way round:
+
+1. Call `session_trace` **before** you write a sentence of the answer.
+2. Read `answered_and_never_checked` first. The list, not the count: each id is
+   an answer you took with nothing standing behind it.
+3. Submit those claims now, through `claim_check` or `judgement_check`. This is
+   the step the order exists for. After the answer is written, the same list is
+   a confession instead of a remedy.
+4. Then write, then the report below, then `deliver`.
+
+**The trace records no reason for any call, and neither does anything else.** So
+why you chose a tool is not a fact you can read back, and an explanation is read
+as an audit: one that mixes your reconstructed reasoning with ledger facts is
+worse than one carrying no reasoning at all, because a reader cannot tell them
+apart. The rule:
+
+> **The reasons are yours and the record is the world's. Put them in different
+> places, and label which is which.**
+
+Your route goes in your own voice, under `asserted without a check`, beside the
+population selector and the payer mix you declared.
+
+**For a reader who was not there, the session id and the receipt ids ARE the
+explanation.** Quote them. A deliverable saying a world was used, without saying
+which session and which receipts, has been asserted rather than explained. And a
+receipt is redeemed against a world's name, vintage and build together, so one
+issued before a rebuild is a different world's: say so rather than papering over
+it.
 
 **The list comes first and the prose second.** Before writing a sentence,
 enumerate every claim the answer intends to make, one per line, in the claim
