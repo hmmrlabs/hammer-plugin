@@ -415,10 +415,19 @@ the entire time.
 
 **Read that as being about the error shape, not about resources being empty.**
 Corrected 2026-08-30, because the sentence above had started to say something
-false: measured on the hosted coverage world, `resources/list` returns **seven**,
-one per skill the world ships. An empty list means that world declares no
-resources, and never that this method is not worth calling. `hello_world` is
-still the way in for skills, for the reason given above.
+false: on a world that ships skills, `resources/list` returns **one per skill**.
+An empty list means that world declares no resources, and never that this method
+is not worth calling. `hello_world` is still the way in for skills, for the
+reason given above.
+
+**Corrected again 2026-09-14, and this time by removing the number rather than
+updating it.** The 2026-08-30 correction wrote **seven**, measured against the
+hosted coverage world that day. On 2026-09-14 that world answers **eight**,
+because it gained a skill. The count was never a fact about this plugin: this
+plugin ships no corpus and no per-world documentation, so every number in it that
+tracks a world will go stale the next time a world is minted, and nobody will be
+looking. A count that has now been wrong twice is a count this file should not
+carry. Ask the world; it answers in one call.
 
 ## Which check to call, and there is no fallback
 
